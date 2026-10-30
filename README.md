@@ -85,7 +85,7 @@ grants-uz-django-site/
 ## Setup
 
 ```bash
-git clone https://github.com/Umar37-max/grants-uz-django-site.git
+git clone https://github.com/umar-rustamov/grants-uz-django-site.git
 cd grants-uz-django-site
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
