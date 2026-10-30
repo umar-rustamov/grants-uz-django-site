@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+{% load static my_tags %}
+
+{% block title %}{% t 'gallareya' %} — Grants.uz{% endblock %}
+
+{% block content %}
+{% t 'gallareya' as page_title %}{% t 'studentlar_rasmlari' as page_sub %}
+{% include "partials/page_hero.html" with title=page_title sub=page_sub %}
+
+<section class="section">
+    <div class="container">
+        <div class="gallery" data-stagger="60">
+            {% for picture in pictures %}
+            <a href="{{ picture.img.url }}" data-lightbox aria-label="{% t 'gallareya' %} {{ forloop.counter }}">
+                <img src="{{ picture.img.url }}" alt="" loading="lazy">
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="{% t 'gallareya' %}">
+    <img src="" alt="">
+    <button type="button" class="lb-close" aria-label="Close"><i class="fas fa-times"></i></button>
+    <button type="button" class="lb-prev" aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
+    <button type="button" class="lb-next" aria-label="Next"><i class="fas fa-arrow-right"></i></button>
+    <span class="lb-count"></span>
+</div>
+{% endblock %}

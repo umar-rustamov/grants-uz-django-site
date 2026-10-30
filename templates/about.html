@@ -1,0 +1,98 @@
+{% extends 'layouts/base.html' %}
+{% load static my_tags %}
+
+{% block title %}{% t 'biz_haqimizda' %} — Grants.uz{% endblock %}
+{% block description %}{% t 'seo_about_description' %}{% endblock %}
+
+{% block content %}
+{% t 'biz_haqimizda' as page_title %}{% t 'chetda_talim' as page_sub %}
+{% include "partials/page_hero.html" with title=page_title sub=page_sub %}
+
+<!-- ======= Intro ======= -->
+<section class="section section--white">
+    <div class="container">
+        <div class="about-intro">
+            <div data-reveal="left">
+                <span class="eyebrow">Grants.uz</span>
+                {% for text in maintext %}<h2>{{ text.main_text }}</h2>{% endfor %}
+            </div>
+            <div data-reveal="right">
+                {% for text in maintext %}<p class="lead">{{ text.second_text }}</p>{% endfor %}
+                {% if checkmarktext %}
+                <ul class="checklist" data-stagger>
+                    {% for text in checkmarktext %}
+                    <li><i class="fas fa-check-circle"></i><span>{{ text.text }}</span></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% for text in othertext %}
+                <div class="about-note">
+                    {% if text.text_1 %}<p>{{ text.text_1 }}</p>{% endif %}
+                    {% if text.text_2 %}<p>{{ text.text_2 }}</p>{% endif %}
+                    {% if text.text_3 %}<p>{{ text.text_3 }}</p>{% endif %}
+                    {% if text.text_4 %}<p>{{ text.text_4 }}</p>{% endif %}
+                    {% if text.text_5 %}<p>{{ text.text_5 }}</p>{% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======= Team ======= -->
+{% if ourteam %}
+<section class="section">
+    <div class="container">
+        <div class="section-head section-head--center" data-reveal>
+            <span class="eyebrow">Grants.uz</span>
+            <h2>{% t 'bizning_jamoa' %}</h2>
+        </div>
+        <div class="team" data-stagger="110">
+            {% for person in ourteam %}
+            <article class="card member" data-tilt>
+                <div class="ph"><img src="{{ person.img.url }}" alt="{{ person.name }}" loading="lazy"></div>
+                <div class="info">
+                    <h3>{{ person.name }}</h3>
+                    <span>{{ person.career }}</span>
+                    {% if person.what_work %}<p>{{ person.what_work }}</p>{% endif %}
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ======= Features ======= -->
+{% if features %}
+<section class="section section--white">
+    <div class="container">
+        <div class="section-head" data-reveal>
+            <span class="eyebrow">Grants.uz</span>
+            <h2>{% t 'features' %}</h2>
+        </div>
+        <div class="tabs" data-tabs>
+            <div class="tab-list" role="tablist" data-reveal="left">
+                {% for feature in features %}
+                <button type="button" role="tab" class="tab-btn{% if feature.activates %} is-active{% endif %}" data-tab="f{{ feature.id }}">
+                    <span class="n">0{{ forloop.counter }}</span>{{ feature.main_title }}
+                </button>
+                {% endfor %}
+            </div>
+            <div data-reveal="right">
+                {% for feature in features %}
+                <div class="card tab-panel{% if feature.activates %} is-active{% endif %}" role="tabpanel" data-panel="f{{ feature.id }}">
+                    <div>
+                        <h3>{{ feature.title }}</h3>
+                        {% if feature.italic_text %}<p class="it">{{ feature.italic_text }}</p>{% endif %}
+                        <p>{{ feature.text }}</p>
+                    </div>
+                    {% if feature.img_sidebar %}<img src="{{ feature.img_sidebar.url }}" alt="" loading="lazy">{% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,209 @@
+<!DOCTYPE html>{% load static i18n my_tags %}{% get_current_language as LANG %}{% site_contact as contact %}{% site_social as social %}
+<html lang="{{ LANG }}" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% t 'title_site' %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% t 'index_seo_description' %}{% endblock %}">
+    <meta name="theme-color" content="#050816">
+    <meta name="google" content="notranslate">
+    <meta property="og:site_name" content="Grants.uz">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}{% t 'title_site' %}{% endblock %}">
+    {% block og_image %}{% endblock %}
+    <link rel="icon" href="{% static 'assets/img/favicon.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'assets/img/apple-touch-icon.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="{% static 'v2/css/app.css' %}?v=2">
+    {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<header class="site-header">
+    <div class="container">
+        <div class="bar">
+            <a href="/" class="logo" aria-label="Grants.uz">
+                <img src="{% static 'v2/img/logo.png' %}" alt="Grants.uz" width="520" height="142">
+            </a>
+
+            <nav class="nav" aria-label="{% t 'menyu' %}">
+                <ul>
+                    <li><a href="/" class="nav-link{% if request.path == '/' %} is-active{% endif %}">{% t 'bosh_sahifa' %}</a></li>
+                    <li>
+                        <a href="/countries/asia/" class="nav-link{% if '/countries/' in request.path %} is-active{% endif %}">{% t 'mamlakatlar' %} <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="/countries/asia/">{% t 'asia_mamlakatlari' %} <i class="fas fa-arrow-right"></i></a></li>
+                            <li><a href="/countries/europa/">{% t 'europa_mamlakatlari' %} <i class="fas fa-arrow-right"></i></a></li>
+                            <li><a href="/countries/oceania/">{% t 'oceania_mamlakatlari' %} <i class="fas fa-arrow-right"></i></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/about/" class="nav-link{% if request.path == '/about/' or request.path == '/testimonials/' or request.path == '/frequently-asked-questions/' %} is-active{% endif %}">{% t 'biz_haqimizda' %} <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="/about/">{% t 'biz_haqimizda' %} <i class="fas fa-arrow-right"></i></a></li>
+                            <li><a href="/testimonials/">{% t 'izohlar' %} <i class="fas fa-arrow-right"></i></a></li>
+                            <li><a href="/frequently-asked-questions/">{% t 'savollarga_javoblar' %} <i class="fas fa-arrow-right"></i></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/blog/" class="nav-link{% if '/blog/' in request.path %} is-active{% endif %}">{% t 'blog' %}</a></li>
+                    <li><a href="/gallery/" class="nav-link{% if request.path == '/gallery/' %} is-active{% endif %}">{% t 'gallareya' %}</a></li>
+                    <li><a href="/branches/" class="nav-link{% if request.path == '/branches/' %} is-active{% endif %}">{% t 'filial' %}</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                {% if contact %}
+                <a class="header-phone" href="tel:{{ contact.phone|cut:' ' }}">
+                    <span class="ico"><i class="fas fa-phone-alt"></i></span>
+                    <span class="num">{{ contact.phone }}</span>
+                </a>
+                {% endif %}
+                <div class="lang" data-toggle-open>
+                    <button type="button" aria-expanded="false" aria-haspopup="true">
+                        <i class="fas fa-globe"></i><span class="code">{{ LANG|upper }}</span><i class="fas fa-chevron-down"></i>
+                    </button>
+                    <ul>
+                        <li><a href="{% url 'setlanguage' 'uz' %}"{% if LANG == 'uz' %} class="is-current"{% endif %}>O‘zbekcha <span>UZ</span></a></li>
+                        <li><a href="{% url 'setlanguage' 'ru' %}"{% if LANG == 'ru' %} class="is-current"{% endif %}>Русский <span>RU</span></a></li>
+                        <li><a href="{% url 'setlanguage' 'en' %}"{% if LANG == 'en' %} class="is-current"{% endif %}>English <span>EN</span></a></li>
+                    </ul>
+                </div>
+                <a href="{% url 'form' %}" class="btn btn-primary btn-sm header-cta">{% t 'zayafka' %}</a>
+                <button class="burger" type="button" aria-label="{% t 'menyu' %}" aria-expanded="false" aria-controls="drawer">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="drawer" id="drawer">
+    <nav aria-label="{% t 'menyu' %}">
+        <ul>
+            <li><a class="drawer-link" href="/">{% t 'bosh_sahifa' %}</a></li>
+            <li class="drawer-group">
+                <button type="button">{% t 'mamlakatlar' %} <i class="fas fa-chevron-down"></i></button>
+                <div class="sub">
+                    <ul>
+                        <li><a href="/countries/asia/">{% t 'asia_mamlakatlari' %}</a></li>
+                        <li><a href="/countries/europa/">{% t 'europa_mamlakatlari' %}</a></li>
+                        <li><a href="/countries/oceania/">{% t 'oceania_mamlakatlari' %}</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drawer-group">
+                <button type="button">{% t 'biz_haqimizda' %} <i class="fas fa-chevron-down"></i></button>
+                <div class="sub">
+                    <ul>
+                        <li><a href="/about/">{% t 'biz_haqimizda' %}</a></li>
+                        <li><a href="/testimonials/">{% t 'izohlar' %}</a></li>
+                        <li><a href="/frequently-asked-questions/">{% t 'savollarga_javoblar' %}</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li><a class="drawer-link" href="/blog/">{% t 'blog' %}</a></li>
+            <li><a class="drawer-link" href="/gallery/">{% t 'gallareya' %}</a></li>
+            <li><a class="drawer-link" href="/branches/">{% t 'filial' %}</a></li>
+        </ul>
+    </nav>
+    <div class="drawer-foot">
+        <div class="drawer-langs">
+            <a href="{% url 'setlanguage' 'uz' %}"{% if LANG == 'uz' %} class="is-current"{% endif %}>UZ</a>
+            <a href="{% url 'setlanguage' 'ru' %}"{% if LANG == 'ru' %} class="is-current"{% endif %}>RU</a>
+            <a href="{% url 'setlanguage' 'en' %}"{% if LANG == 'en' %} class="is-current"{% endif %}>EN</a>
+        </div>
+        <a href="{% url 'form' %}" class="btn btn-primary btn-block">{% t 'zayafka_button' %} <i class="fas fa-arrow-right"></i></a>
+        {% if contact %}<a href="tel:{{ contact.phone|cut:' ' }}" class="btn btn-glass btn-block"><i class="fas fa-phone-alt"></i> {{ contact.phone }}</a>{% endif %}
+    </div>
+</div>
+
+<main id="main">
+{% block content %}{% endblock %}
+</main>
+
+{% block cta %}{% include "partials/cta.html" %}{% endblock %}
+
+<footer class="site-footer">
+    <span class="blob b1" aria-hidden="true"></span>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="{% static 'v2/img/logo-white.png' %}" alt="Grants.uz" width="520" height="142" loading="lazy">
+                <p>Grants.uz — {% t 'chetda_talim' %}. {% t 'cta_text' %}</p>
+                {% if social %}
+                <div class="socials">
+                    {% if social.telegram_link %}<a href="{{ social.telegram_link }}" target="_blank" rel="noopener" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>{% endif %}
+                    {% if social.instagram_link %}<a href="{{ social.instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>{% endif %}
+                    {% if social.facebook_link %}<a href="{{ social.facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>{% endif %}
+                    {% if social.tiktok_link %}<a href="{{ social.tiktok_link }}" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>{% endif %}
+                    {% if social.email %}<a href="mailto:{{ social.email }}" aria-label="Email"><i class="fas fa-envelope"></i></a>{% endif %}
+                </div>
+                {% endif %}
+            </div>
+            <div>
+                <h4>{% t 'menyu' %}</h4>
+                <ul class="footer-links">
+                    <li><a href="/">{% t 'bosh_sahifa' %}</a></li>
+                    <li><a href="/about/">{% t 'biz_haqimizda' %}</a></li>
+                    <li><a href="/testimonials/">{% t 'izohlar' %}</a></li>
+                    <li><a href="/frequently-asked-questions/">{% t 'savollarga_javoblar' %}</a></li>
+                    <li><a href="/blog/">{% t 'blog' %}</a></li>
+                    <li><a href="/gallery/">{% t 'gallareya' %}</a></li>
+                    <li><a href="/branches/">{% t 'filial' %}</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>{% t 'mamlakatlar' %}</h4>
+                <ul class="footer-links">
+                    <li><a href="/countries/asia/">{% t 'asia_mamlakatlari' %}</a></li>
+                    <li><a href="/countries/europa/">{% t 'europa_mamlakatlari' %}</a></li>
+                    <li><a href="/countries/oceania/">{% t 'oceania_mamlakatlari' %}</a></li>
+                    <li><a href="{% url 'form' %}">{% t 'zayafka' %}</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>{% t 'address_office' %}</h4>
+                <ul class="contact-list">
+                    <li><i class="fas fa-map-marker-alt"></i><div><strong>{% t 'address' %}</strong>{% t 'address_value' %}</div></li>
+                    <li><i class="fas fa-location-arrow"></i><div><strong>{% t 'moljal' %}</strong>{% t 'moljal_value' %}</div></li>
+                    {% if contact %}
+                    <li><i class="fas fa-phone-alt"></i><div><strong>{% t 'telefon_raqam' %}</strong><a href="tel:{{ contact.phone|cut:' ' }}">{{ contact.phone }}</a></div></li>
+                    <li><i class="fas fa-envelope"></i><div><strong>{% t 'email' %}</strong><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></div></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="footer-map">
+            <iframe src="https://www.google.com/maps?q=41.265297,69.199565&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{% t 'address_office' %}" allowfullscreen></iframe>
+        </div>
+        <div class="footer-bottom">
+            <span>© <span data-year>2026</span> Grants.uz — {% t 'footer_rights' %}</span>
+            <span>{% t 'chetda_talim' %}</span>
+        </div>
+    </div>
+</footer>
+
+{% if social or contact %}
+<div class="contact-fab" data-toggle-open>
+    <button class="fab-main" type="button" aria-label="{% t 'aloqa' %}" aria-expanded="false">
+        <i class="fas fa-comment-dots"></i><i class="fas fa-times"></i>
+    </button>
+    {% if social.telegram_link %}<a class="fab-item tg" href="{{ social.telegram_link }}" target="_blank" rel="noopener" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>{% endif %}
+    {% if social.instagram_link %}<a class="fab-item ig" href="{{ social.instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>{% endif %}
+    {% if social.facebook_link %}<a class="fab-item fb" href="{{ social.facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>{% endif %}
+    {% if contact %}<a class="fab-item ph" href="tel:{{ contact.phone|cut:' ' }}" aria-label="{% t 'call_us_button' %}"><i class="fas fa-phone-alt"></i></a>{% endif %}
+</div>
+{% endif %}
+<button class="to-top" type="button" aria-label="Up">
+    <svg viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="22"></circle></svg>
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+{% block after %}{% endblock %}
+<script src="{% static 'v2/js/app.js' %}?v=2" defer></script>
+</body>
+</html>

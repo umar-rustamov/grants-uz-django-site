@@ -1,0 +1,26 @@
+{% extends "layouts/base.html" %}
+{% load static my_tags %}
+
+{% block title %}{% t 'savollarga_javoblar' %} — Grants.uz{% endblock %}
+
+{% block content %}
+{% t 'savollarga_javoblar' as page_title %}{% t 'faq_text' as page_sub %}
+{% include "partials/page_hero.html" with title=page_title sub=page_sub %}
+
+<section class="section">
+    <div class="container">
+        <div class="faq" data-stagger="70">
+            {% for faq in faqs %}
+            <details class="faq-item"{% if faq.activates %} open{% endif %}>
+                <summary>
+                    <span class="q">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <span>{{ faq.title }}</span>
+                    <span class="pm" aria-hidden="true"></span>
+                </summary>
+                <div class="faq-body">{{ faq.text|linebreaks }}</div>
+            </details>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

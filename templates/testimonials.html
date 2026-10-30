@@ -1,0 +1,26 @@
+{% extends "layouts/base.html" %}
+{% load static my_tags %}
+
+{% block title %}{% t 'izohlar' %} — Grants.uz{% endblock %}
+
+{% block content %}
+{% t 'talabalarimizning_izohlari' as page_title %}{% t 'izohlar' as page_crumb %}
+{% include "partials/page_hero.html" with title=page_title crumb=page_crumb %}
+
+<section class="section">
+    <div class="container">
+        <div class="reviews-grid" data-stagger="80">
+            {% for comment in comments %}
+            <article class="card spot review">
+                <i class="fas fa-quote-right qi" aria-hidden="true"></i>
+                <p class="text">{{ comment.comment }}</p>
+                <div class="who">
+                    <img src="{{ comment.user_img.url }}" alt="{{ comment.username }}" loading="lazy">
+                    <div><strong>{{ comment.username }}</strong><span>{{ comment.where_studies }}</span></div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

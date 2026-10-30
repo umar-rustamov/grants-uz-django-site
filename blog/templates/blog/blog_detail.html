@@ -1,0 +1,85 @@
+{% extends "layouts/base.html" %}
+{% load static my_tags %}
+
+{% block title %}{{ object.title }} — Grants.uz{% endblock %}
+{% block description %}{{ object.text|truncatewords:30 }}{% endblock %}
+{% block og_title %}{{ object.title }}{% endblock %}
+{% block og_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ object.img.url }}">{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <canvas data-particles aria-hidden="true"></canvas>
+    <span class="blob b1" aria-hidden="true"></span>
+    <span class="blob b2" aria-hidden="true"></span>
+    <div class="container">
+        <span class="eyebrow" data-reveal>{% t 'blog' %}</span>
+        <h1 data-reveal style="--d:80ms">{{ object.title }}</h1>
+        <div class="meta" data-reveal style="--d:160ms">
+            {% if object.author_name %}<span><i class="fas fa-user"></i> {{ object.author_name }}</span>{% endif %}
+            {% if object.date_posted %}<span><i class="far fa-calendar"></i> {{ object.date_posted }}</span>{% endif %}
+        </div>
+        <ol class="crumbs" data-reveal style="--d:240ms">
+            <li><a href="/">{% t 'bosh_sahifa' %}</a></li>
+            <li><a href="{% url 'blog' %}">{% t 'blog' %}</a></li>
+            <li>{{ object.blog_main_detail_text|default:object.title }}</li>
+        </ol>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="article-layout">
+            <article>
+                <div class="article-cover" data-reveal="zoom"><img src="{{ object.img.url }}" alt="{{ object.title }}"></div>
+                <div class="prose" data-reveal>
+                    {{ object.text|linebreaks }}
+                    {% if object.main_phrase %}<blockquote><p>{{ object.main_phrase }}</p></blockquote>{% endif %}
+                    {% if object.detail_title_1 %}<h2>{{ object.detail_title_1 }}</h2>{% endif %}
+                    {{ object.detail_text_1|linebreaks }}
+                    {% if object.detail_img_1 %}<img src="{{ object.detail_img_1.url }}" alt="" loading="lazy">{% endif %}
+                    {% if object.detail_title_2 %}<h2>{{ object.detail_title_2 }}</h2>{% endif %}
+                    {{ object.detail_text_2|linebreaks }}
+                    {% if object.detail_img_2 %}<img src="{{ object.detail_img_2.url }}" alt="" loading="lazy">{% endif %}
+                    {% if object.detail_title_3 %}<h2>{{ object.detail_title_3 }}</h2>{% endif %}
+                    {{ object.detail_text_3|linebreaks }}
+                    {% if object.detail_img_3 %}<img src="{{ object.detail_img_3.url }}" alt="" loading="lazy">{% endif %}
+                </div>
+                {% with url=request.build_absolute_uri %}
+                <div class="share">
+                    <span>{% t 'ulashish' %}:</span>
+                    <a class="tg" href="https://t.me/share/url?url={{ url|urlencode }}&amp;text={{ object.title|urlencode }}" target="_blank" rel="noopener" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                    <a class="fb" href="https://www.facebook.com/sharer/sharer.php?u={{ url|urlencode }}" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="wa" href="https://wa.me/?text={{ object.title|urlencode }}%20{{ url|urlencode }}" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                {% endwith %}
+            </article>
+
+            <aside class="sidebar">
+                <div class="side-cta" data-reveal>
+                    <span class="eyebrow">Grants.uz</span>
+                    <h4 style="margin-top:16px">{% t 'cta_title' %}</h4>
+                    <p>{% t 'cta_text' %}</p>
+                    <a href="{% url 'form' %}" class="btn btn-light btn-block">{% t 'zayafka_button' %} <i class="fas fa-arrow-right"></i></a>
+                </div>
+                {% if recents %}
+                <div class="card side-box" data-reveal>
+                    <h4>{% t 'recent' %}</h4>
+                    {% for recent in recents %}
+                    <a class="mini-post" href="{% url 'blog-detail' recent.which_blog.id %}">
+                        <img src="{{ recent.which_blog.img.url }}" alt="" loading="lazy">
+                        <div><strong>{{ recent.which_blog.blog_main_detail_text|default:recent.which_blog.title }}</strong><span>{{ recent.which_blog.date_posted }}</span></div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if tags %}
+                <div class="card side-box" data-reveal>
+                    <h4>Tags</h4>
+                    <div class="tags">{% for tag in tags %}<span>#{{ tag.tag }}</span>{% endfor %}</div>
+                </div>
+                {% endif %}
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}

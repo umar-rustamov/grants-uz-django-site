@@ -1,0 +1,48 @@
+{% load my_tags %}{% site_contact as contact %}
+<section class="page-hero uni-hero">
+    <canvas data-particles aria-hidden="true"></canvas>
+    <span class="blob b1" aria-hidden="true"></span>
+    <span class="blob b2" aria-hidden="true"></span>
+    <div class="container">
+        <div class="row">
+            <div>
+                <span class="eyebrow" data-reveal>{% t 'universitet' %}</span>
+                <h1 data-reveal style="--d:80ms">{{ object.nameText|default:object.name_key }}</h1>
+                <div class="facts" data-reveal style="--d:160ms">
+                    <span><i class="fas fa-globe-europe"></i> {{ object.country }}</span>
+                    {% if object.addressText %}<span><i class="fas fa-map-marker-alt"></i> {{ object.addressText }}</span>{% endif %}
+                    {% if object.rating %}<span class="hot"><i class="fas fa-trophy"></i> {% t 'top' %}-{{ object.rating }}</span>{% endif %}
+                </div>
+                <div class="hero-actions" style="margin-top:30px;--d:240ms" data-reveal>
+                    <a href="{% url 'form' %}" class="btn btn-primary">{% t 'zayafka_button' %} <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ list_url }}" class="btn btn-glass"><i class="fas fa-arrow-left"></i> {% t continent_key %}</a>
+                </div>
+                <ol class="crumbs" data-reveal style="--d:300ms">
+                    <li><a href="/">{% t 'bosh_sahifa' %}</a></li>
+                    <li><a href="{{ list_url }}">{% t continent_key %}</a></li>
+                    <li>{% t 'universitet' %}</li>
+                </ol>
+            </div>
+            <div class="photo" data-reveal="zoom"><img src="{{ object.img.url }}" alt="{{ object.nameText|default:object.name_key }}"></div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="article-layout">
+            <div class="uni-content" data-reveal>
+                {% autoescape off %}{{ object.contentText }}{% endautoescape %}
+            </div>
+            <aside class="sidebar">
+                <div class="side-cta" data-reveal>
+                    <span class="eyebrow">{% t 'zayafka' %}</span>
+                    <h4 style="margin-top:16px">{% t 'cta_title' %}</h4>
+                    <p>{% t 'yordam' %}</p>
+                    <a href="{% url 'form' %}" class="btn btn-light btn-block">{% t 'zayafka_button' %} <i class="fas fa-arrow-right"></i></a>
+                    {% if contact %}<a href="tel:{{ contact.phone|cut:' ' }}" class="btn btn-glass btn-block" style="margin-top:10px"><i class="fas fa-phone-alt"></i> {{ contact.phone }}</a>{% endif %}
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>

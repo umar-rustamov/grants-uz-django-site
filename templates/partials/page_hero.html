@@ -1,0 +1,17 @@
+{% load my_tags %}
+<section class="page-hero{% if hero_class %} {{ hero_class }}{% endif %}">
+    <canvas data-particles aria-hidden="true"></canvas>
+    <span class="blob b1" aria-hidden="true"></span>
+    <span class="blob b2" aria-hidden="true"></span>
+    <span class="blob b3" aria-hidden="true"></span>
+    <div class="container">
+        <span class="eyebrow" data-reveal>{{ eyebrow|default:"Grants.uz" }}</span>
+        <h1 data-reveal style="--d:80ms">{{ title }}</h1>
+        {% if sub %}<p class="sub" data-reveal style="--d:160ms">{{ sub }}</p>{% endif %}
+        <ol class="crumbs" data-reveal style="--d:240ms">
+            <li><a href="/">{% t 'bosh_sahifa' %}</a></li>
+            {% if parent_title %}<li><a href="{{ parent_url }}">{{ parent_title }}</a></li>{% endif %}
+            <li>{{ crumb|default:title }}</li>
+        </ol>
+    </div>
+</section>

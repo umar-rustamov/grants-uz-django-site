@@ -1,0 +1,17 @@
+{% load my_tags %}{% site_contact as contact %}
+<section class="section section--tight">
+    <div class="container">
+        <div class="cta" data-reveal="zoom">
+            <div class="rings" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="cta-text">
+                <span class="eyebrow">Grants.uz</span>
+                <h2>{% t 'cta_title' %}</h2>
+                <p>{% t 'cta_text' %}</p>
+            </div>
+            <div class="cta-actions">
+                <a href="{% url 'form' %}" class="btn btn-light">{% t 'zayafka_button' %} <i class="fas fa-arrow-right"></i></a>
+                {% if contact %}<a href="tel:{{ contact.phone|cut:' ' }}" class="btn btn-glass"><i class="fas fa-phone-alt"></i> {{ contact.phone }}</a>{% endif %}
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,10 @@
+# Originally developed on Django 3.2 LTS (Python 3.8+)
+Django>=3.2,<5.0
+django-adminlte-3==0.1.6
+django-ckeditor>=6.1,<7
+django-js-asset>=1.2
+django-translations==1.3.0
+Pillow>=8.2
+requests>=2.25
+# Optional: loads a local .env file in development (see grantproject/settings.py)
+python-dotenv>=1.0

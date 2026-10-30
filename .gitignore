@@ -1,0 +1,31 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+virtualenv-*/
+get-pip.py
+
+# --- Django ---
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+media/
+static_files/
+tmp/
+*.log
+
+# --- Secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Backups / editor ---
+*.orig
+*.bak
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

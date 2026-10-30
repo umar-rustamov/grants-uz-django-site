@@ -1,0 +1,42 @@
+{% load my_tags %}
+{% t continent_key as page_title %}{% t 'qita_text' as page_sub %}
+{% include "partials/page_hero.html" with title=page_title sub=page_sub %}
+
+<section class="section">
+    <div class="container">
+        <div class="filters" data-reveal>
+            <div class="chips" role="group" aria-label="{% t 'mamlakatlar' %}">
+                <button type="button" class="chip is-active" data-filter-country="all">{% t 'barcha_mamlakatlar' %}</button>
+                {% for country in countries %}
+                <button type="button" class="chip" data-filter-country="{{ country.id }}">{{ country.name }}</button>
+                {% endfor %}
+            </div>
+            <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+                <span class="count-pill">{% t 'natija2' %}: <b data-uni-count>{{ universities|length }}</b></span>
+                <label class="search">
+                    <i class="fas fa-search"></i>
+                    <input type="search" placeholder="{% t 'qidirish' %}" aria-label="{% t 'qidirish' %}" data-uni-search>
+                </label>
+            </div>
+        </div>
+
+        <div class="unis" data-uni-grid data-stagger="60">
+            {% for university in universities %}
+            {% url detail_url university.id as uni_url %}
+            <article class="card uni" data-uni data-country="{{ university.country_id }}" data-name="{{ university.nameText|default:''|lower }} {{ university.name_key|lower }}">
+                <a class="cover" href="{{ uni_url }}" tabindex="-1" aria-hidden="true">
+                    <img src="{{ university.img.url }}" alt="" loading="lazy">
+                    {% if university.rating %}<span class="badge">{% t 'top' %}-{{ university.rating }}</span>{% endif %}
+                    <span class="country">{{ university.country }}</span>
+                </a>
+                <div class="body">
+                    <h3><a href="{{ uni_url }}">{{ university.nameText|default:university.name_key }}</a></h3>
+                    <div class="addr">{% if university.addressText %}<i class="fas fa-map-marker-alt"></i><span>{{ university.addressText }}</span>{% endif %}</div>
+                    <a class="btn btn-outline btn-sm" href="{{ uni_url }}">{% t 'batafsil' %} <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <p class="empty" data-uni-empty hidden><i class="fas fa-search"></i>{% t 'topilmadi' %}</p>
+    </div>
+</section>

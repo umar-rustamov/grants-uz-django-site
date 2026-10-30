@@ -1,0 +1,90 @@
+{% extends "layouts/base.html" %}
+{% load static my_tags %}
+
+{% block title %}{% t 'zayafka' %} — Grants.uz{% endblock %}
+
+{% block content %}
+{% site_contact as contact %}{% site_social as social %}
+{% t 'zayafka' as page_title %}{% t 'cta_text' as page_sub %}
+{% include "partials/page_hero.html" with title=page_title sub=page_sub %}
+
+<section class="section">
+    <div class="container">
+        <div class="form-layout">
+            <aside class="form-aside" data-reveal="left">
+                <canvas class="bg-canvas" data-particles aria-hidden="true"></canvas>
+                <span class="eyebrow">{% t 'aloqa' %}</span>
+                <h2>{% t 'cta_title' %}</h2>
+                <p>{% t 'yordam' %}</p>
+                <ul class="contact-list">
+                    {% if contact %}
+                    <li><i class="fas fa-phone-alt"></i><div><strong>{% t 'telefon_raqam' %}</strong><a href="tel:{{ contact.phone|cut:' ' }}">{{ contact.phone }}</a></div></li>
+                    <li><i class="fas fa-envelope"></i><div><strong>{% t 'email' %}</strong><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></div></li>
+                    {% endif %}
+                    <li><i class="fas fa-map-marker-alt"></i><div><strong>{% t 'address' %}</strong>{% t 'address_value' %}</div></li>
+                </ul>
+                {% if social %}
+                <div class="socials">
+                    {% if social.telegram_link %}<a href="{{ social.telegram_link }}" target="_blank" rel="noopener" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>{% endif %}
+                    {% if social.instagram_link %}<a href="{{ social.instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>{% endif %}
+                    {% if social.facebook_link %}<a href="{{ social.facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>{% endif %}
+                </div>
+                {% endif %}
+            </aside>
+
+            <div class="card form-card" data-reveal="right">
+                <form action="{% url 'form' %}" method="post" data-lead-form novalidate
+                      data-loading="{% t 'loading' %}" data-error="{% t 'form_error' %}">
+                    {% csrf_token %}
+                    <h3>{% t 'forma_toldirish' %}</h3>
+                    <div class="fields">
+                        <div class="field">
+                            <input type="text" name="lastname" id="lastname" placeholder=" " autocomplete="family-name" required>
+                            <label for="lastname">{% t 'familiya_kiritish' %}</label>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="name" id="name" placeholder=" " autocomplete="given-name" required>
+                            <label for="name">{% t 'ism_kiritish' %}</label>
+                        </div>
+                        <div class="field">
+                            <input type="tel" name="tel-phone" id="tel-phone" placeholder=" " autocomplete="tel" inputmode="tel" minlength="9" required>
+                            <label for="tel-phone">{% t 'telefon_kiriting' %}</label>
+                        </div>
+                        <div class="field">
+                            <input type="number" name="age" id="age" placeholder=" " min="10" max="80" inputmode="numeric" required>
+                            <label for="age">{% t 'yosh_kiritish' %}</label>
+                        </div>
+                        <div class="field full">
+                            <input type="text" name="choosecity" id="choosecity" placeholder=" " autocomplete="address-level2" required>
+                            <label for="choosecity">{% t 'qayerdansiz' %}</label>
+                        </div>
+                        <div class="field full">
+                            <span class="hint">{% t 'sertifikat' %}</span>
+                            <select name="certificateselect" id="certificateselect" required aria-label="{% t 'sertifikat' %}">
+                                <option value="" disabled selected>{% t 'javob_ha_yoq' %}</option>
+                                <option value="Да">{% t 'ha' %}</option>
+                                <option value="Нет">{% t 'yoq' %}</option>
+                            </select>
+                        </div>
+                        <div class="field full">
+                            <textarea name="message" id="message" placeholder=" " rows="5" required></textarea>
+                            <label for="message">{% t 'ozing_haqingda' %}</label>
+                        </div>
+                    </div>
+                    <div class="form-foot">
+                        <button type="submit" class="btn btn-primary">{% t 'raxmat' %} <i class="fas fa-paper-plane"></i></button>
+                        <div class="form-status" data-form-status role="status" aria-live="polite"></div>
+                    </div>
+                </form>
+                <div class="success-burst" role="status">
+                    <div class="ok"><i class="fas fa-check"></i></div>
+                    <h3>{% t 'messages' %}</h3>
+                    <button type="button" class="btn btn-outline" data-form-again>{% t 'yana_yuborish' %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block cta %}{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'layouts/base.html' %}
+{% load static my_tags %}
+
+{% block title %}{% t 'filial' %} — Grants.uz{% endblock %}
+
+{% block content %}
+{% t 'filial' as page_title %}{% t 'aloqa' as page_sub %}
+{% include "partials/page_hero.html" with title=page_title sub=page_sub %}
+
+<section class="section">
+    <div class="container">
+        <div class="branches">
+            {% for branch in branches %}
+            <article class="card branch" data-reveal>
+                <div class="info">
+                    <span class="eyebrow">0{{ forloop.counter }}</span>
+                    <h2>{{ branch.title }}</h2>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-map-marker-alt"></i><div>{{ branch.address|linebreaksbr }}</div></li>
+                        <li><i class="fas fa-phone-alt"></i><div><strong>{% t 'telefon_raqam' %}</strong><a href="tel:{{ branch.phone|cut:' '|cut:'-' }}">{{ branch.phone }}</a></div></li>
+                        {% if branch.secondary_phone %}<li><i class="fas fa-phone-alt"></i><div><strong>{% t 'telefon_raqam' %}</strong><a href="tel:{{ branch.secondary_phone|cut:' '|cut:'-' }}">{{ branch.secondary_phone }}</a></div></li>{% endif %}
+                        {% if branch.third_phone %}<li><i class="fas fa-phone-alt"></i><div><strong>{% t 'telefon_raqam' %}</strong><a href="tel:{{ branch.third_phone|cut:' '|cut:'-' }}">{{ branch.third_phone }}</a></div></li>{% endif %}
+                    </ul>
+                </div>
+                <div class="map">
+                    <iframe src="{{ branch.location_link_https }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{{ branch.title }}" allowfullscreen></iframe>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

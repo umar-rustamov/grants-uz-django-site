@@ -1,0 +1,236 @@
+{% extends "layouts/base.html" %}
+{% load static my_tags %}
+
+{% block head %}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-206089712-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-206089712-1');
+</script>
+{% endblock %}
+
+{% block body_class %}page-home{% endblock %}
+
+{% block content %}
+{% site_contact as contact %}
+
+<!-- ======= Hero ======= -->
+<section class="hero" data-hero>
+    <h1 class="sr-only">{% t 'title_site' %}</h1>
+    {% for slide in headercarousel %}
+    <div class="hero-slide{% if forloop.first %} is-active{% endif %}">
+        <div class="hero-bg"{% if forloop.first %} style="background-image:url('{{ slide.bg_img.url }}')"{% else %} data-bg="{{ slide.bg_img.url }}"{% endif %}></div>
+    </div>
+    {% endfor %}
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+        <div class="container">
+            <div class="hero-content">
+                {% for slide in headercarousel %}
+                <div class="hero-text{% if forloop.first %} is-active{% endif %}">
+                    <span class="eyebrow">{% t 'chetda_talim' %}</span>
+                    <h2 class="hero-title">{{ slide.country }}</h2>
+                    <p class="lead">{{ slide.content }}</p>
+                    <div class="hero-actions">
+                        <a href="{% url 'form' %}" class="btn btn-primary">{% t 'zayafka_button' %} <i class="fas fa-arrow-right"></i></a>
+                        {% if contact %}<a href="tel:{{ contact.phone|cut:' ' }}" class="btn btn-glass"><i class="fas fa-phone-alt"></i> {% t 'call_us_button' %}</a>{% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-controls">
+        <div class="container">
+            <div class="hero-dots">
+                {% for slide in headercarousel %}
+                <button type="button" class="hero-dot{% if forloop.first %} is-active{% endif %}" aria-label="{{ slide.country }}">
+                    <span class="num">0{{ forloop.counter }}</span>
+                    <span class="label">{{ slide.country }}</span>
+                    <span class="track"></span>
+                </button>
+                {% endfor %}
+            </div>
+            <div class="hero-arrows">
+                <button type="button" class="hero-arrow" data-hero-prev aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
+                <button type="button" class="hero-arrow" data-hero-next aria-label="Next"><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">Scroll</div>
+</section>
+
+<!-- ======= Purpose ======= -->
+{% for purpose in purposes %}{% if forloop.first %}
+<section class="section section--white section--tight">
+    <div class="container">
+        <div class="purpose" data-reveal>
+            <div class="q-mark" aria-hidden="true">“</div>
+            <blockquote>{{ purpose.content }}</blockquote>
+            <cite>Grants.uz</cite>
+        </div>
+    </div>
+</section>
+{% endif %}{% endfor %}
+
+<!-- ======= Advantages ======= -->
+<section class="section">
+    <div class="container">
+        <div class="adv-wrap">
+            <div>
+                <div class="section-head" data-reveal>
+                    <span class="eyebrow">{% t 'afzalliklar' %}</span>
+                    <h2>{% t 'afzalliklar_text' %}</h2>
+                </div>
+                <div class="adv-list" data-stagger>
+                    {% for advantage in advantages %}
+                    <div class="card spot adv-item">
+                        <span class="icon-tile"><i class="fas fa-{% cycle 'globe-americas' 'graduation-cap' 'shield-alt' 'bolt' 'check-double' %}"></i></span>
+                        <div>
+                            <h3>{{ advantage.title }}</h3>
+                            <p>{{ advantage.content }}</p>
+                        </div>
+                        <span class="num">0{{ forloop.counter }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% for purpose in purposes %}{% if forloop.first %}
+            <div class="adv-visual" data-reveal="right">
+                <img src="{{ purpose.advantage_img.url }}" alt="Grants.uz" loading="lazy">
+                {% for result in results %}{% if forloop.first %}
+                <div class="adv-badge">
+                    <span class="icon-tile"><i class="fas fa-user-graduate"></i></span>
+                    <div><strong>{{ result.count_student }}+</strong><span>{% t 'natija1' %}</span></div>
+                </div>
+                {% endif %}{% endfor %}
+            </div>
+            {% endif %}{% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ======= Services ======= -->
+<section class="section section--white">
+    <div class="container">
+        <div class="section-head section-head--center" data-reveal>
+            <span class="eyebrow">{% t 'uslugi' %}</span>
+            <h2>{% t 'uslugi_text' %}</h2>
+        </div>
+        <div class="services" data-stagger>
+            <div class="card spot service" data-tilt><span class="idx">01</span><span class="icon-tile"><i class="fas fa-comments"></i></span><h3>{% t 'uslugi1' %}</h3><span class="bar"></span></div>
+            <div class="card spot service" data-tilt><span class="idx">02</span><span class="icon-tile"><i class="fas fa-university"></i></span><h3>{% t 'uslugi2' %}</h3><span class="bar"></span></div>
+            <div class="card spot service" data-tilt><span class="idx">03</span><span class="icon-tile"><i class="fas fa-file-signature"></i></span><h3>{% t 'uslugi3' %}</h3><span class="bar"></span></div>
+            <div class="card spot service" data-tilt><span class="idx">04</span><span class="icon-tile warm"><i class="fas fa-award"></i></span><h3>{% t 'uslugi4' %}</h3><span class="bar"></span></div>
+            <div class="card spot service" data-tilt><span class="idx">05</span><span class="icon-tile"><i class="fas fa-plane-arrival"></i></span><h3>{% t 'uslugi5' %}</h3><span class="bar"></span></div>
+            <div class="card spot service" data-tilt><span class="idx">06</span><span class="icon-tile"><i class="fas fa-hands-helping"></i></span><h3>{% t 'uslugi6' %}</h3><span class="bar"></span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ======= Continents ======= -->
+<section class="section" id="continents">
+    <div class="container">
+        <div class="section-head" data-reveal>
+            <span class="eyebrow">{% t 'qita' %}</span>
+            <h2>{% t 'qita_text' %}</h2>
+        </div>
+        {% for country in countries %}{% if forloop.first %}
+        <div class="continents" data-stagger="140">
+            <a class="continent" href="/countries/asia/" data-tilt>
+                <img src="{{ country.asia_img.url }}" alt="" loading="lazy">
+                <div class="body"><span class="tag">01</span><h3>{% t 'asia_mamlakatlari' %}</h3><span class="go"><i class="fas fa-arrow-right"></i></span></div>
+            </a>
+            <a class="continent" href="/countries/europa/" data-tilt>
+                <img src="{{ country.europe_img.url }}" alt="" loading="lazy">
+                <div class="body"><span class="tag">02</span><h3>{% t 'europa_mamlakatlari' %}</h3><span class="go"><i class="fas fa-arrow-right"></i></span></div>
+            </a>
+            <a class="continent" href="/countries/oceania/" data-tilt>
+                <img src="{{ country.oceania_img.url }}" alt="" loading="lazy">
+                <div class="body"><span class="tag">03</span><h3>{% t 'oceania_mamlakatlari' %}</h3><span class="go"><i class="fas fa-arrow-right"></i></span></div>
+            </a>
+        </div>
+        {% endif %}{% endfor %}
+    </div>
+</section>
+
+<!-- ======= Results ======= -->
+{% for result in results %}{% if forloop.first %}
+<section class="section section--dark">
+    <canvas class="bg-canvas" data-particles aria-hidden="true"></canvas>
+    <span class="blob b1" aria-hidden="true"></span>
+    <span class="blob b2" aria-hidden="true"></span>
+    <div class="container">
+        <div class="section-head section-head--center" data-reveal>
+            <span class="eyebrow">{% t 'natija' %}</span>
+            <h2>{% t 'natija_text' %}</h2>
+        </div>
+        <div class="stats" data-reveal="zoom">
+            <div class="stat"><span class="ico"><i class="fas fa-user-graduate"></i></span><div class="val"><span data-count="{{ result.count_student }}">{{ result.count_student }}</span><span class="plus">+</span></div><p>{% t 'natija1' %}</p></div>
+            <div class="stat"><span class="ico"><i class="fas fa-university"></i></span><div class="val"><span data-count="{{ result.count_university }}">{{ result.count_university }}</span><span class="plus">+</span></div><p>{% t 'natija2' %}</p></div>
+            <div class="stat"><span class="ico"><i class="fas fa-award"></i></span><div class="val"><span data-count="{{ result.count_grant }}">{{ result.count_grant }}</span><span class="plus">+</span></div><p>{% t 'natija3' %}</p></div>
+            <div class="stat"><span class="ico"><i class="fas fa-book-open"></i></span><div class="val"><span data-count="{{ result.count_preparation_course }}">{{ result.count_preparation_course }}</span><span class="plus">+</span></div><p>{% t 'natija4' %}</p></div>
+        </div>
+    </div>
+</section>
+{% endif %}{% endfor %}
+
+<!-- ======= Recommended universities ======= -->
+{% if recommendeds %}
+<section class="section section--white section--tight">
+    <div class="container">
+        <div class="section-head section-head--center" data-reveal>
+            <span class="eyebrow">{% t 'recomen' %}</span>
+        </div>
+    </div>
+    <div class="marquee" data-reveal>
+        <div class="marquee-track">
+            {% for copy in "1234" %}
+            {% for recommended in recommendeds %}
+            <a class="logo-card" {% if not forloop.parentloop.first %}aria-hidden="true" tabindex="-1" {% endif %}href="{% if recommended.which_university_asia_id %}{% url 'university-detail-asia' recommended.which_university_asia_id %}{% elif recommended.which_university_europa_id %}{% url 'university-detail-europa' recommended.which_university_europa_id %}{% elif recommended.which_university_oceania_id %}{% url 'university-detail-oceanii' recommended.which_university_oceania_id %}{% else %}#{% endif %}">
+                <img src="{{ recommended.logo_img.url }}" alt="" loading="lazy">
+            </a>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ======= Testimonials ======= -->
+{% if comments %}
+<section class="section" data-slider-root>
+    <div class="container">
+        <div class="head-row">
+            <div class="section-head" data-reveal>
+                <span class="eyebrow">{% t 'izohlar' %}</span>
+                <h2>{% t 'talabalarimizning_izohlari' %}</h2>
+            </div>
+            <div class="slider-nav" data-reveal>
+                <a href="/testimonials/" class="more" style="margin-right:12px">{% t 'barchasi' %} <i class="fas fa-arrow-right"></i></a>
+                <button type="button" class="round-btn" data-slide-prev aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
+                <button type="button" class="round-btn" data-slide-next aria-label="Next"><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+        <div class="slider-track" data-stagger>
+            {% for comment in comments %}
+            <article class="card spot review">
+                <i class="fas fa-quote-right qi" aria-hidden="true"></i>
+                <p class="text">{{ comment.comment }}</p>
+                <div class="who">
+                    <img src="{{ comment.user_img.url }}" alt="{{ comment.username }}" loading="lazy">
+                    <div><strong>{{ comment.username }}</strong><span>{{ comment.where_studies }}</span></div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

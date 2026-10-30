@@ -1,0 +1,202 @@
+{% load static %}
+{% load i18n %}
+{% load my_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>{%  t 'title_site' %}</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Font Awesome -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+            rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap-grid.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap-reboot.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/animations.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/transformations.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/animate.css/animate.compat.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/owl.carousel/assets/owl.theme.default.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/owl.carousel/assets/owl.theme.green.min.css' %}" rel="stylesheet">
+
+    <!-- Navbar File CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/navbar.css' %}">
+    <!-- General Style File -->
+    <link rel="stylesheet" href="{% static 'assets/css/generalstyle.css' %}">
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/about.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/index.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/testimonials.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/blog.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/gallery.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/branches.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/countries.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/faq.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/form.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/unversitiesinner.css' %}" rel="stylesheet">
+
+    <!-- Footer File CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/footer.css' %}">
+
+</head>
+
+<body>
+
+<!-- ======= Top Bar ======= -->
+<div id="topbar" class="d-lg-flex align-items-center fixed-top">
+
+    <div class="container d-flex">
+        <div class="contact-info mr-auto">
+            <i class="icofont-envelope"></i>
+            {% for item in emailandphone %}
+                <a href="mailto:{{ item.email }}">{{ item.email }}</a>
+                <i class="icofont-phone"></i>
+                <a href="tel:{{ item.phone }}">{{ item.phone }}</a>
+            {% endfor %}
+        </div>
+        <div class="social-links">
+            {% for social in socials %}
+                <a href="{{ social.telegram_link }}" target="_blank" title="Telegram">
+                    <i class="icofont-telegram"></i>
+                </a>
+                <a href="{{ social.facebook_link }}" target="_blank" title="Facebook">
+                    <i class="icofont-facebook"></i>
+                </a>
+                <a href="{{ social.instagram_link }}" target="_blank" title="Instagram">
+                    <i class="icofont-instagram"></i>
+                </a>
+                <a href="{{ social.email_link }}" target="_blank" title="Gmail">
+                    <i class="icofont-ui-email"></i>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top ">
+
+    <div class="container d-flex align-items-center bd-highlight">
+
+        <a href="/" class="logo mr-auto bd-highlight"><img src="{% static 'assets/img/logo.png' %}" alt=""
+                                                           class="img-fluid"></a>
+
+        <nav class="nav-menu d-none d-lg-block bd-highlight">
+            <ul>
+
+                <li class="active">
+                    <a href="/">{%  t 'bosh_sahifa' %}</a>
+                </li>
+
+                <li class="drop-down">
+                    <a href="#">{%  t 'mamlakatlar' %}</a>
+                    <ul>
+                        <li>
+                            <a href="/countries/asia">{%  t 'asia_mamlakatlari' %}</a>
+                        </li>
+                        <li>
+                            <a href="/countries/europa">{%  t 'europa_mamlakatlari' %}</a>
+                        </li>
+                        <li>
+                            <a href="/countries/oceania">{%  t 'oceania_mamlakatlari' %}</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="drop-down">
+                    <a href="#">{%  t 'biz_haqimizda' %}</a>
+                    <ul>
+                        <li>
+                            <a href="/about">{%  t 'biz_haqimizda' %}</a>
+                        </li>
+                        <li>
+                            <a href="/testimonials">{%  t 'izohlar' %}</a>
+                        </li>
+                        <li>
+                            <a href="/frequently-asked-questions">{%  t 'savollarga_javoblar' %}</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="/blog">{%  t 'blog' %}</a>
+                </li>
+                <li>
+                    <a href="/gallery">{%  t 'gallareya' %}</a>
+                </li>
+                <li>
+                    <a href="/branches">{% t 'filial' %}</a>
+                </li>
+
+            </ul>
+
+        </nav>
+        <!-- .nav-menu -->
+
+        <div class="lang">
+
+            <li class="drop-down">
+                {% get_available_languages as LANGUAGES %}
+                {% get_current_language as LANGUAGE_CODE %}
+                {#                    {% for lang in LANGUAGES %}#}
+                {% for i,j in LANGUAGES %}
+                    {% if i == LANGUAGE_CODE %}
+                        <a href="#">{{ j }}</a>
+                    {% endif %}
+                {% endfor %}
+                <ul>
+                    {% for i,j in LANGUAGES %}
+                        {% if i != LANGUAGE_CODE %}
+                            <li>
+                                <a href="{% url 'setlanguage' i %}">{{ j }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                </ul>
+            </li>
+
+        </div>
+    </div>
+</header>
+<!-- End Header -->
+
+<!-- Social Icons -->
+<div class="icon-bar">
+    {% for link in socials %}
+        <a href="{{ link.telegram_link }}" class="telegram" target="_blank" title="Telegram"><i
+                class="fab fa-telegram-plane"></i></a>
+        <a href="{{ link.instagram_link }}" class="instagram" target="_blank"><i
+                class="fab fa-instagram"></i></a>
+        <a href="{{ link.facebook_link }}" class="facebook" target="_blank" title="Facebook"><i
+                class="fab fa-facebook-f"></i></a>
+        <a href="{{ link.tiktok_link }}" class="tiktok" target="_blank" title="tiktok" ><i
+                class="fab fa-tiktok"></i></a>
+    {% endfor %}
+</div>

@@ -1,0 +1,6 @@
+{% extends "layouts/base.html" %}
+{% load my_tags %}
+
+{% block title %}{% t 'europa_mamlakatlari' %} — Grants.uz{% endblock %}
+
+{% block content %}{% include "partials/countries.html" with continent_key="europa_mamlakatlari" detail_url="university-detail-europa" %}{% endblock %}

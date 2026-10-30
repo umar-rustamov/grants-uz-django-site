@@ -1,0 +1,9 @@
+{% extends "layouts/base.html" %}
+{% load my_tags %}
+
+{% block title %}{{ object.nameText|default:object.name_key }} — Grants.uz{% endblock %}
+{% block description %}{% if object.meta_description %}{{ object.meta_description }}{% else %}{% t 'index_seo_description' %}{% endif %}{% endblock %}
+{% block og_title %}{{ object.nameText|default:object.name_key }}{% endblock %}
+{% block og_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ object.img.url }}">{% endblock %}
+
+{% block content %}{% include "partials/university.html" with continent_key="oceania_mamlakatlari" list_url="/countries/oceania/" %}{% endblock %}

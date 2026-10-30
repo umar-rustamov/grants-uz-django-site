@@ -1,0 +1,31 @@
+{% extends "layouts/base.html" %}
+{% load static my_tags %}
+
+{% block title %}{% t 'blog' %} — Grants.uz{% endblock %}
+
+{% block content %}
+{% t 'blog' as page_title %}{% t 'chetda_talim' as page_sub %}
+{% include "partials/page_hero.html" with title=page_title sub=page_sub %}
+
+<section class="section">
+    <div class="container">
+        <div class="posts" data-stagger="110">
+            {% for blog in blogs %}
+            <article class="card post">
+                <a class="cover" href="{% url 'blog-detail' blog.id %}" tabindex="-1" aria-hidden="true">
+                    <img src="{{ blog.img.url }}" alt="" loading="lazy">
+                    {% if blog.date_posted %}<span class="date"><i class="far fa-calendar"></i> {{ blog.date_posted }}</span>{% endif %}
+                </a>
+                <div class="body">
+                    <h3><a href="{% url 'blog-detail' blog.id %}">{{ blog.title }}</a></h3>
+                    <p>{{ blog.text }}</p>
+                    <a class="more" href="{% url 'blog-detail' blog.id %}">{% t 'batafsil_oqish' %} <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+            {% empty %}
+            <p class="empty"><i class="far fa-newspaper"></i>{% t 'topilmadi' %}</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
